@@ -18,7 +18,7 @@ export default {
 <style scoped>
 
     .resource {
-        margin: 10px 5% 10px 5%;
+        margin: 0 5% 10px 5%;
     }
 
     .title {

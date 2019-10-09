@@ -10,11 +10,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    padding: 2% 5% 2% 5%;
+    padding: 0 5% 0 5%;
   }
 
   html, body{
-    height:100%;
+    height:100vh;
     width:100%;
     margin:0;
     background-color:#eeeeee;

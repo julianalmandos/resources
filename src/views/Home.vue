@@ -1,48 +1,77 @@
 <template>
     <div class="home">
-        <h1>My Resources ({{totalResources}})</h1>
-        <h3 class="search-info" v-if="searchValue!=''">Searching for "{{searchValue}}" / {{resources.length}} results</h3>
+        <h1 class="title">My Resources ({{totalResources}})</h1>
+        <h3 class="search-info" v-if="searchValue!=''">Searching for "{{searchValue}}" / {{currentResources.length}} results</h3>
         <input id="search" type="text" placeholder="Buscar..." v-model="searchValue">
-        <div class="resources-grid grid" :class="resources.length < 3 ? (resources.length < 2 ? 'one-col-grid' : 'two-col-grid') : 'big-grid'">
-            <Resource v-for="resource of resources" :key="resource.title" :resource="resource"/>
-        </div>        
+        <div class="categories">
+            <Category v-for="category of categories" :key="category.name" :category="category" @select="selectCategory(category.id)"/>
+        </div>
+        <div v-if="currentResources.length!=0" class="grid" :class="currentResources.length < 3 ? (currentResources.length < 2 ? 'one-col-grid' : 'two-col-grid') : 'big-grid'">
+            <Resource v-for="resource of currentResources" :key="resource.url" :resource="resource"/>
+        </div>  
+        <div v-else class="error">
+            <h3>No matched resources.</h3>
+        </div>      
     </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import Resource from "@/components/Resource.vue";
+import Category from "@/components/Category.vue";
 import axios from 'axios';
 
 export default {
     name: "home",
     components: {
-        Resource
+        Resource,
+        Category,
     },
     data(){
         return {
             resources: [],
+            currentResources: [],
+            categories: [],
+            selectedCategories: [],
             searchValue: '',
             totalResources: 0,
         }
     },
     watch: {
         searchValue: function(val,oldVal) {
-            console.log('asd');
-            axios.get('http://localhost:3000/resources/'+this.searchValue)
-                .then(response => {
-                    console.log(response);
-                    this.resources=response.data;
-                })
+            this.currentResources=this.resources.filter(res => res.title.includes(val));
+        },
+        selectedCategories: function(val,oldVal) {
+            //buscar por categorías
+            console.log('buscar '+this.selectedCategories);
+            if(this.selectedCategories.length!=0){
+                this.currentResources=this.resources.filter(res => this.selectedCategories.includes(res.category));
+            }else{
+                this.currentResources=this.resources;
+            }            
         }
     },
     beforeMount() {
         //Llamada axios y me traigo todos los recursos
-        axios.get('http://localhost:3000/resources')
+        axios.get('http://localhost:3000/api/resources')
             .then(response => {
                 this.resources=response.data;
+                this.currentResources=this.resources;
                 this.totalResources=this.resources.length;
             })
+        axios.get('http://localhost:3000/api/categories')
+            .then(response => {
+                this.categories=response.data;
+            })
+    },
+    methods: {
+        selectCategory(id){
+            if(this.selectedCategories.includes(id)){
+                this.selectedCategories=this.selectedCategories.filter(cat => cat!=id);
+            }else{
+                this.selectedCategories.push(id);
+            }            
+        },
     }
 };
 </script>
@@ -55,6 +84,23 @@ export default {
         align-items:center;
     }
 
+    .categories {
+        display:flex;
+        width:100%;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-top: 30px;
+    }
+
+    .title {
+        background-color:#2c3e50;
+        padding: 0 10px 0 10px;
+        color:white;
+        transform: skew(-10deg);
+        width: 100%;
+        text-align:center;
+    }
+
     #search {
         width:60%;
         height:2.5rem;
@@ -62,7 +108,11 @@ export default {
         border-radius:5px;
         box-sizing: border-box;
         padding:12px;
-        font-size:16px;
+        font-size: 16px;
+    }
+
+    .error {
+        margin-top: 30px;
     }
 
     .search-info {
@@ -71,6 +121,7 @@ export default {
 
     .grid {
         display:grid;
+        margin-top: 30px;
     }
 
     .one-col-grid {
@@ -87,8 +138,16 @@ export default {
 
     @media (max-width: 800px) {
         .grid {
-            display:grid;
             grid-template-columns: 1fr;
+        }
+
+        .categories {
+            flex-direction: column;
+            margin-top: 10px;
+        }
+        
+        #search {
+            width: 100%;
         }
     }
 </style>
