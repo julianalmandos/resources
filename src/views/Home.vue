@@ -39,16 +39,10 @@ export default {
     },
     watch: {
         searchValue: function(val,oldVal) {
-            this.currentResources=this.resources.filter(res => res.title.includes(val));
+            this.filterResources();
         },
         selectedCategories: function(val,oldVal) {
-            //buscar por categorías
-            console.log('buscar '+this.selectedCategories);
-            if(this.selectedCategories.length!=0){
-                this.currentResources=this.resources.filter(res => this.selectedCategories.includes(res.category));
-            }else{
-                this.currentResources=this.resources;
-            }            
+            this.filterResources();        
         }
     },
     beforeMount() {
@@ -72,6 +66,23 @@ export default {
                 this.selectedCategories.push(id);
             }            
         },
+        filterResources(){
+            if(this.searchValue!='' && this.selectedCategories.length!=0){
+                //Search by both
+                this.currentResources=this.resources.filter(res => {
+                    return res.title.includes(this.searchValue) && this.selectedCategories.includes(res.category);
+                })
+            }else if(this.searchValue!=''){
+                //Search by input
+                this.currentResources=this.resources.filter(res => res.title.includes(this.searchValue));
+            }else if(this.selectedCategories.length!=0){
+                //Search by category
+                this.currentResources=this.resources.filter(res => this.selectedCategories.includes(res.category));
+            }else{
+                //Reset
+                this.currentResources=this.resources;
+            }
+        }
     }
 };
 </script>
