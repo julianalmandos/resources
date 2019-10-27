@@ -4,10 +4,10 @@
         <h3 class="search-info" v-if="searchValue!=''">Searching for "{{searchValue}}" / {{currentResources.length}} results</h3>
         <input id="search" type="text" placeholder="Buscar..." v-model="searchValue">
         <div class="categories">
-            <Category v-for="category of categories" :key="category.name" :category="category" @select="selectCategory(category.id)"/>
+            <Category v-for="(category,index) of categories" :key="index" :category="category" @select="selectCategory(category.id)"/>
         </div>
         <div v-if="currentResources.length!=0" class="grid" :class="currentResources.length < 3 ? (currentResources.length < 2 ? 'one-col-grid' : 'two-col-grid') : 'big-grid'">
-            <Resource v-for="resource of currentResources" :key="resource.url" :resource="resource"/>
+            <Resource v-for="(resource,index) of currentResources" :key="index" :resource="resource"/>
         </div>  
         <div v-else class="error">
             <h3>No matched resources.</h3>
@@ -49,6 +49,7 @@ export default {
         //Llamada axios y me traigo todos los recursos
         axios.get('http://localhost:3000/api/resources')
             .then(response => {
+                console.log(response.data);
                 this.resources=response.data;
                 this.currentResources=this.resources;
                 this.totalResources=this.resources.length;
@@ -70,14 +71,14 @@ export default {
             if(this.searchValue!='' && this.selectedCategories.length!=0){
                 //Search by both
                 this.currentResources=this.resources.filter(res => {
-                    return res.title.includes(this.searchValue) && this.selectedCategories.includes(res.category);
+                    return res.title.includes(this.searchValue) && this.selectedCategories.includes(res.category.id);
                 })
             }else if(this.searchValue!=''){
                 //Search by input
                 this.currentResources=this.resources.filter(res => res.title.includes(this.searchValue));
             }else if(this.selectedCategories.length!=0){
                 //Search by category
-                this.currentResources=this.resources.filter(res => this.selectedCategories.includes(res.category));
+                this.currentResources=this.resources.filter(res => this.selectedCategories.includes(res.category.id));
             }else{
                 //Reset
                 this.currentResources=this.resources;

@@ -1,6 +1,6 @@
 <template>
     <div class="resource">
-        <h2 class="title"><a :style="{'color':resource.color}" target="_blank" :href="resource.url">{{resource.title}}</a></h2>
+        <h2 class="title"><a :style="{'color':resource.category.color}" target="_blank" :href="resource.url">{{resource.title}}</a></h2>
         <span class="description">{{resource.description}}</span>
         <span></span>
     </div>
