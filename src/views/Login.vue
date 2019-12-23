@@ -8,7 +8,7 @@
             <input type="text">
             <span>Password</span>
             <input type="password">
-            <button type="submit">Enter =]</button>
+            <button class="skewed-button" type="submit">Enter =]</button>
         </div>        
         <div class="footer"><span>Made with ♥ by <a class="classyLink" href="http://github.com/julianalmandos">Julian Almandos</a> in 2019</span></div>
     </div>
@@ -55,20 +55,17 @@ export default {
         margin-bottom: 1rem;
     }
 
-    button {
+    .skewed-button {
         background-color:white;
         border: 1px solid #2c3e50;
         width: 60%;
         height: 2.5rem;
         margin-top: 1rem;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
         color: #2c3e50;
         font-size: 16px;
     }
 
-    button:hover {
+    .skewed-button:hover {
         background-color: #2c3e50;
         color: white;
         cursor: pointer;

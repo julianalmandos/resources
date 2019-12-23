@@ -10,7 +10,7 @@
             <Resource v-for="(resource,index) of currentResources" :key="index" :resource="resource"/>
         </div>  
         <div v-else class="error">
-            <h3>No matched resources.</h3>
+            <h3>No matching resources.</h3>
         </div>      
     </div>
 </template>
@@ -132,8 +132,10 @@ export default {
     }
 
     .grid {
-        display:grid;
+        display: grid;
+        width: 100%;
         margin-top: 30px;
+        margin-bottom: 30px;
     }
 
     .one-col-grid {
@@ -142,10 +144,14 @@ export default {
 
     .two-col-grid {
         grid-template-columns: 1fr 1fr;
+        grid-column-gap: 3%;
+        grid-row-gap: 20px;
     }
 
     .big-grid {
         grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 3%;
+        grid-row-gap: 20px;
     }
 
     @media (max-width: 800px) {

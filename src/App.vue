@@ -6,11 +6,20 @@
 
 <style>
   #app {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     padding: 0 5% 0 5%;
+  }
+
+  .dot {
+      height: 0.7rem;
+      width: 0.7rem;
+      background-color: #bbb;
+      display: inline-block;
+      margin-right: 6px;
   }
 
   html, body{

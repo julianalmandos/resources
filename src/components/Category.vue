@@ -39,14 +39,6 @@ export default {
         background-color:white;
     }
 
-    .dot {
-        height: 0.7rem;
-        width: 0.7rem;
-        background-color: #bbb;
-        display: inline-block;
-        margin-right: 6px;
-    }
-
     @media (max-width: 800px) {
         .category {
             margin-bottom: 10px;
