@@ -1,8 +1,17 @@
 <template>
     <div class="home">
         <h1 class="title">My Resources ({{totalResources}})</h1>
-        <h3 class="search-info" v-if="searchValue!=''">Searching for "{{searchValue}}" / {{currentResources.length}} results</h3>
+        <h3 class="search-info" v-if="searchValue!=''">Searching for "{{searchValue}}" / {{currentResources.length}} results <a @click="clearSearch()" class="clear">clear</a></h3>
         <input id="search" type="text" placeholder="Buscar..." v-model="searchValue">
+        <h3 class="search-category-info" v-if="selectedCategories.length!=0">Searching for 
+            <span v-for="(category,index) of selectedCategories" :key="index">
+                <span v-if="index!=0 && index!=selectedCategories.length-1">, </span>
+                <span v-if="index==selectedCategories.length-1 && selectedCategories.length>1">and </span>
+                {{getCategoryName(category)}}
+            </span> / {{currentResources.length}} results
+
+            <a @click="clearCategories()" class="clear">clear</a>
+        </h3>
         <div class="categories">
             <Category v-for="(category,index) of categories" :key="index" :category="category" @select="selectCategory(category.id)"/>
         </div>
@@ -83,7 +92,17 @@ export default {
                 //Reset
                 this.currentResources=this.resources;
             }
-        }
+        },
+        getCategoryName(categoryId) {
+            let category = this.categories.find(currentCategory => currentCategory.id==categoryId)
+            return category.name;
+        },
+        clearCategories() {
+            // WIP
+        },
+        clearSearch() {
+            this.searchValue = '';
+        },
     }
 };
 </script>
@@ -113,6 +132,16 @@ export default {
         text-align:center;
     }
 
+    .clear {
+        color: #cccccc;
+        text-decoration: none;
+    }
+
+    .clear:hover {
+        color: #2c3e50;
+        cursor: pointer;
+    }
+
     #search {
         width:60%;
         height:2.5rem;
@@ -129,6 +158,10 @@ export default {
 
     .search-info {
         margin-top: 0px;
+    }
+
+    .search-category-info {
+        margin-bottom: 0px;
     }
 
     .grid {
