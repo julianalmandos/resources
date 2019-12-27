@@ -1,9 +1,18 @@
 <template>
     <a class="resource" target="_blank" :href="resource.url">
-        <h2 class="title"><a>{{resource.title}}</a></h2>
-        <div><span class="dot" :style="{'background-color':resource.category.color}"></span>{{resource.category.name}}</div>
-        <span class="description">{{resource.description}}</span>
-        <span></span>
+        <div class="info">
+            <div class="header">
+                <h2 class="title"><a>{{resource.title}}</a></h2>
+                <div class="actions">
+                    <font-awesome-icon class="action" icon="link" alt="Copy link to clipboard"/>
+                    <font-awesome-icon class="action" icon="pencil-alt" alt="Edit"/>
+                    <font-awesome-icon class="action" icon="trash-alt" alt="Delete"/>
+                </div>
+            </div>
+            <div><span class="dot" :style="{'background-color':resource.category.color}"></span>{{resource.category.name}}</div>
+            <span class="description">{{resource.description}}</span>
+        </div>
+        <div class="creation-date"><em>Added on: {{resource.createdAt}}</em></div>
     </a>
 </template>
 
@@ -28,15 +37,35 @@ export default {
         color: #2c3e50;
 
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .resource:hover {
         background-color: white;
     }
 
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
     .title {
         margin-bottom: 0px;
         margin-top:0px;
+        width: 60%;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .action {
+        margin-left: 5px;
     }
 
     a {
@@ -47,6 +76,11 @@ export default {
         font-family: 'Open Sans', sans-serif;
         width:100%;
         word-break: break-all;
+    }
+
+    .creation-date {
+        color: #aaaaaa;
+        text-decoration: underline;
     }
 
 </style>
