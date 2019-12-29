@@ -1,8 +1,20 @@
 <template>
   <div id="app">
-    <router-view/>
+    <NavigationBar/>
+    <router-view class="component"/>
   </div>
 </template>
+
+<script>
+import NavigationBar from "@/components/NavigationBar.vue";
+
+export default {
+    name: 'App',
+    components: {
+      NavigationBar,
+    },
+}
+</script>
 
 <style>
   #app {
@@ -11,15 +23,15 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-    padding: 0 5% 0 5%;
+    margin: 0 10% 0 10%;
   }
 
   .dot {
-      height: 0.7rem;
-      width: 0.7rem;
-      background-color: #bbb;
-      display: inline-block;
-      margin-right: 6px;
+    height: 0.7rem;
+    width: 0.7rem;
+    background-color: #bbb;
+    display: inline-block;
+    margin-right: 6px;
   }
 
   html, body{
@@ -27,5 +39,25 @@
     width:100%;
     margin:0;
     background-color:#eeeeee;
+  }
+
+  .component {
+    margin-top: 60px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #eeeeee;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2c3e50;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2c3e50;
   }
 </style>

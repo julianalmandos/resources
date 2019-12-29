@@ -2,7 +2,7 @@
     <a class="resource" target="_blank" :href="resource.url">
         <div class="info">
             <div class="header">
-                <h2 class="title"><a>{{resource.title}}</a></h2>
+                <h3 class="title"><a>{{resource.title}}</a></h3>
                 <div class="actions">
                     <font-awesome-icon class="action" icon="link" alt="Copy link to clipboard"/>
                     <font-awesome-icon class="action" icon="pencil-alt" alt="Edit"/>
