@@ -31,6 +31,15 @@ export default new Vuex.Store({
     },
     setSearchValue(state, value) {
       state.searchValue = value;
+    },
+    selectCategory(state, category) {
+      state.searchCategories.push(category);
+    },
+    deselectCategory(state, category) {
+      state.searchCategories = state.searchCategories.filter(currentCategory => {
+        return currentCategory != category;
+      });
+    },
     }
   },
   actions: {
@@ -43,6 +52,9 @@ export default new Vuex.Store({
     getCategories({ commit }) {
       Axios.get('//localhost:3000/api/categories')
         .then(response => {
+          response.data.forEach(category => {
+            category.selected = false;
+          })
           commit('getCategories', response.data);
         })
     },
