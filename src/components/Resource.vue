@@ -75,7 +75,6 @@ export default {
     .description {
         font-family: 'Open Sans', sans-serif;
         width:100%;
-        word-break: break-all;
     }
 
     .creation-date {
