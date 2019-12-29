@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-	<Filtered/>
+	<Search/>
     <div
       v-if="currentResources.length!=0"
       class="grid"
@@ -16,7 +16,7 @@
 
 <script>
 import Resource from "@/components/Resource.vue";
-import Filtered from "@/components/Filter.vue";
+import Search from "@/components/Search.vue";
 import Axios from "axios";
 import Vuex from "vuex";
 
@@ -24,7 +24,7 @@ export default {
   name: "home",
   components: {
 	Resource,
-	Filtered,
+	Search,
   },
   data() {
 	  return {

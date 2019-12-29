@@ -15,11 +15,18 @@ export default new Vuex.Store({
     getFilteredResources(state) {
       //Filter code
       return state.resources.filter(resource => {
-        return resource.title.toLowerCase().includes(state.searchValue.toLowerCase());
+        return resource.title.toLowerCase().includes(state.searchValue.toLowerCase())
+          && (state.searchCategories.length!=0 ? state.searchCategories.includes(resource.category.id) : true);
       });
     },
     getFilteredResourcesCount(state, getters) {
       return getters.getFilteredResources.length;
+    },
+    getCategoryName: state => categoryId => {
+      let category = state.categories.find(currentCategory => {
+        return currentCategory.id == categoryId;
+      })
+      return category.name;
     }
   },
   mutations: {
@@ -40,6 +47,11 @@ export default new Vuex.Store({
         return currentCategory != category;
       });
     },
+    emptySearchCategories(state) {
+      state.searchCategories = [];
+      state.categories.forEach(category => {
+        category.selected = false;
+      })
     }
   },
   actions: {
