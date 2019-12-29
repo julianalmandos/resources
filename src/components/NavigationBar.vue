@@ -5,24 +5,24 @@
         </div>
         <div class="nav">
             <div class="nav__leftmenu">
-                <a class="nav__anchor" href="#">
+                <router-link class="nav__anchor" to="/">
                     <font-awesome-icon class="icon" icon="home" />Home
-                </a>
-                <a class="nav__anchor" href="#">
+                </router-link>
+                <router-link class="nav__anchor" to="/new">
                     <font-awesome-icon class="icon" icon="plus" />New
-                </a>
+                </router-link>
             </div>
             <h1 class="nav__title">Resourcerify</h1>
             <div class="nav__rightmenu">
-                <a class="nav__anchor" href="#">
+                <router-link class="nav__anchor" to="/profile">
                     <font-awesome-icon class="icon" icon="user" />Profile
-                </a>
-                <a class="nav__anchor" href="#">
+                </router-link>
+                <router-link class="nav__anchor" to="/help">
                     <font-awesome-icon class="icon" icon="question" />Help
-                </a>
-                <a class="nav__anchor" href="#">
+                </router-link>
+                <router-link class="nav__anchor" to="/logout">
                     <font-awesome-icon class="icon" icon="sign-out-alt" />Logout
-                </a>
+                </router-link>
             </div>
         </div>
     </nav>
@@ -30,7 +30,12 @@
 
 <script>
 export default {
-    name: "NavigationBar"
+    name: "NavigationBar",
+    data() {
+        return {
+            current: [],
+        }
+    }
 };
 </script>
 
@@ -78,6 +83,10 @@ export default {
 
 .nav__leftmenu {
     width: 25%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .nav__rightmenu {
@@ -86,17 +95,18 @@ export default {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    padding-right: 10px;
+    padding-right: 15px;
 }
 
 .nav__anchor {
     margin-left: 15px;
     text-decoration: none;
     color: white;
+    border-bottom: 2px solid transparent;
 }
 
 .nav__anchor:hover {
-    color: #cccccc;
+    border-bottom: 2px solid white;
 }
 
 .icon {
