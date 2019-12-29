@@ -42,7 +42,7 @@ export default {
   }
 
   .component {
-    margin-top: 60px;
+    margin-top: 100px;
   }
 
   ::-webkit-scrollbar {

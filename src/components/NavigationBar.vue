@@ -1,19 +1,29 @@
 <template>
-      <nav class="nav">
-        <div class="nav__leftmenu">
-            <a class="nav__anchor" href="#"><font-awesome-icon class="icon" icon="home" /> Home</a>
+      <nav class="navbar">
+        <div class="logo">
+            <h1 class="logo__text">Resourcerify</h1>
         </div>
-        <h1 class="nav__title">Resourcerify</h1>
-        <div class="nav__rightmenu">
-            <a class="nav__anchor" href="#">
-                <font-awesome-icon class="icon" icon="user" />Profile
-            </a>
-            <a class="nav__anchor" href="#">
-                <font-awesome-icon class="icon" icon="question" />Help
-            </a>
-            <a class="nav__anchor" href="#">
-                <font-awesome-icon class="icon" icon="sign-out-alt" />Logout
-            </a>
+        <div class="nav">
+            <div class="nav__leftmenu">
+                <a class="nav__anchor" href="#">
+                    <font-awesome-icon class="icon" icon="home" />Home
+                </a>
+                <a class="nav__anchor" href="#">
+                    <font-awesome-icon class="icon" icon="plus" />New
+                </a>
+            </div>
+            <h1 class="nav__title">Resourcerify</h1>
+            <div class="nav__rightmenu">
+                <a class="nav__anchor" href="#">
+                    <font-awesome-icon class="icon" icon="user" />Profile
+                </a>
+                <a class="nav__anchor" href="#">
+                    <font-awesome-icon class="icon" icon="question" />Help
+                </a>
+                <a class="nav__anchor" href="#">
+                    <font-awesome-icon class="icon" icon="sign-out-alt" />Logout
+                </a>
+            </div>
         </div>
     </nav>
 </template>
@@ -25,10 +35,32 @@ export default {
 </script>
 
 <style scoped>
+.logo {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #eeeeee;
+    border: 1px solid #2c3e50;
+    z-index: 1;
+    padding: 5px 20px 5px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo__text {
+    color: #2c3e50;
+    font-size: 3em;
+    margin: 0;
+}
+
 .nav {
     background-color: #2c3e50;
     color: white;
     width: 80%;
+    height: 45px;
 
     display: flex;
     flex-direction: row;
