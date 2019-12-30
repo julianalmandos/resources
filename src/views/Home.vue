@@ -75,7 +75,7 @@ export default {
   grid-row-gap: 20px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
   .grid {
     grid-template-columns: 1fr;
   }
