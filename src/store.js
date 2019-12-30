@@ -81,5 +81,15 @@ export default new Vuex.Store({
           commit('getCategories', response.data);
         })
     },
+    deleteResource({ dispatch }, resourceId) {
+      Axios.delete('//localhost:3000/api/resources',{
+        data: {
+          id: resourceId
+        }
+      })
+        .then(response => {
+          dispatch('getResources');
+        })
+    }
   }
 })
