@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-	<Search/>
+	  <Search/>
     <div
       v-if="currentResources.length!=0"
       class="grid"
