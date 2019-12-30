@@ -1,26 +1,58 @@
 <template>
-    <a class="resource" target="_blank" :href="resource.url">
+    <div class="resource" :ref="resource.id" target="_blank" :href="resource.url">
         <div class="info">
             <div class="header">
                 <h3 class="title"><a>{{resource.title}}</a></h3>
                 <div class="actions">
-                    <font-awesome-icon class="action" icon="link" alt="Copy link to clipboard"/>
-                    <font-awesome-icon class="action" icon="pencil-alt" alt="Edit"/>
-                    <font-awesome-icon class="action" icon="trash-alt" alt="Delete"/>
+                    <a @click="copyUrl"><font-awesome-icon class="action" icon="link" alt="Copy link to clipboard"/></a>
+                    <a @click="editResource"><font-awesome-icon class="action" icon="pencil-alt" alt="Edit"/></a>
+                    <a @click="deleteResource"><font-awesome-icon class="action" icon="trash-alt" alt="Delete"/></a>
                 </div>
             </div>
             <div><span class="dot" :style="{'background-color':resource.category.color}"></span>{{resource.category.name}}</div>
             <span class="description">{{resource.description}}</span>
         </div>
         <div class="creation-date"><em>Added on: {{resource.createdAt}}</em></div>
-    </a>
+    </div>
 </template>
 
 <script>
+import Alert from '@/components/Alert.vue';
+
 export default {
     name: 'Resource',
+    components: {
+        Alert,
+    },
     props: {
         resource:{},
+    },
+    methods: {
+        deleteResource() {
+            this.$store.dispatch('deleteResource',this.resource.id);
+            this.$store.commit('setAlert',{
+                alert: {
+                    message: 'Resource deleted successfully!',
+                    icon: 'trash-alt'
+                },
+                duration: 4000
+            });
+        },
+        copyUrl() {
+            navigator.clipboard.writeText(this.$refs[this.resource.id].getAttribute('href'))
+                .then(() => {
+                    this.$store.commit('setAlert',{
+                        alert: {
+                            message: 'Copied to clipboard!',
+                            icon: 'link'
+                        },
+                        duration: 4000
+                    });
+                })
+        },
+        editResource() {
+            this.$router.push('/edit/'+this.resource.id);
+        }
     }
 }
 </script>
