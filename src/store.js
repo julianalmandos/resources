@@ -9,7 +9,8 @@ export default new Vuex.Store({
     resources: [],
     categories: [],
     searchValue: '',
-    searchCategories: []
+    searchCategories: [],
+    alert: null,
   },
   getters: {
     getFilteredResources(state) {
@@ -52,6 +53,16 @@ export default new Vuex.Store({
       state.categories.forEach(category => {
         category.selected = false;
       })
+    },
+    setAlert(state, payload) {
+      state.alert = null;
+      state.alert = payload.alert;
+      setTimeout(() => {
+        state.alert == payload.alert ? state.alert = null : null;
+      }, payload.duration)
+    },
+    removeAlert(state) {
+      state.alert = null;
     }
   },
   actions: {

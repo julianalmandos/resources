@@ -2,17 +2,28 @@
   <div id="app">
     <NavigationBar/>
     <router-view class="component"/>
+    <transition name="slide-fade">
+      <Alert v-if="alert!=null" :alert="alert"/>
+    </transition>
   </div>
 </template>
 
 <script>
 import NavigationBar from "@/components/NavigationBar.vue";
+import Alert from "@/components/Alert.vue";
+import Vuex from "vuex";
 
 export default {
     name: 'App',
     components: {
       NavigationBar,
+      Alert
     },
+    computed: {
+      ...Vuex.mapState([
+        'alert'
+      ])
+    }
 }
 </script>
 
@@ -24,6 +35,19 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
     margin: 0 10% 0 10%;
+  }
+
+  .slide-fade-enter-active {
+    transition: all .2s ease;
+  }
+
+  .slide-fade-leave-active {
+    transition: all .2s ease;
+  }
+
+  .slide-fade-enter, .slide-fade-leave-to {
+    transform: translateY(50px);
+    opacity: 0;
   }
 
   .dot {
