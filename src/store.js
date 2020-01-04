@@ -49,10 +49,13 @@ export default new Vuex.Store({
       });
     },
     emptySearchCategories(state) {
+      state.searchCategories.forEach(category => {
+        const categoryToDeselect = state.categories.find(currentCategory => {
+          return currentCategory.id == category;
+        });
+        categoryToDeselect.selected = false;
+      });
       state.searchCategories = [];
-      state.categories.forEach(category => {
-        category.selected = false;
-      })
     },
     setAlert(state, payload) {
       state.alert = null;
