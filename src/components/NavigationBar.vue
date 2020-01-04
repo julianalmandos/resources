@@ -5,23 +5,24 @@
         </div>
         <div class="nav">
             <div class="nav__leftmenu">
-                <router-link class="nav__anchor" to="/">
-                    <font-awesome-icon class="icon" icon="home" />Home
-                </router-link>
-                <router-link class="nav__anchor" to="/new">
-                    <font-awesome-icon class="icon" icon="plus" />New
+                <router-link
+                    v-for="(option,index) in leftMenu"
+                    :key="index"
+                    :class="['nav__anchor',{'nav__anchor--active':menu[index].active}]"
+                    :to="option.path"
+                >
+                    <font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}
                 </router-link>
             </div>
             <h1 class="nav__title">Resourcerify</h1>
             <div class="nav__rightmenu">
-                <router-link class="nav__anchor" to="/profile">
-                    <font-awesome-icon class="icon" icon="user" />Profile
-                </router-link>
-                <router-link class="nav__anchor" to="/help">
-                    <font-awesome-icon class="icon" icon="question" />Help
-                </router-link>
-                <router-link class="nav__anchor" to="/logout">
-                    <font-awesome-icon class="icon" icon="sign-out-alt" />Logout
+                <router-link
+                    v-for="(option,index) in rightMenu"
+                    :key="index"
+                    :class="['nav__anchor',{'nav__anchor--active':menu[index].active}]"
+                    :to="option.path"
+                >
+                    <font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}
                 </router-link>
             </div>
         </div>
@@ -33,9 +34,47 @@ export default {
     name: "NavigationBar",
     data() {
         return {
-            current: [],
+            leftMenu: {
+                'home': {
+                    title: 'Home',
+                    path: '/',
+                    icon: 'home',
+                    active: false,
+                },
+                'new': {
+                    title: 'New',
+                    path: '/new',
+                    icon: 'plus',
+                    active: false,
+                }
+            },
+            rightMenu: {
+                'profile': {
+                    title: 'Profile',
+                    path: '/profile',
+                    icon: 'user',
+                    active: false,
+                },
+                'help': {
+                    title: 'Help',
+                    path: '/help',
+                    icon: 'question',
+                    active: false,
+                },
+                'logout': {
+                    title: 'Logout',
+                    path: '/logout',
+                    icon: 'sign-out-alt',
+                    active: false,
+                }
+            }
         }
-    }
+    },
+    computed: {
+        menu() {
+            return {...this.leftMenu,...this.rightMenu};
+        }
+    },
 };
 </script>
 
