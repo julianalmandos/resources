@@ -1,5 +1,5 @@
 <template>
-    <div class="resource" :ref="resource.id" target="_blank" :href="resource.url">
+    <div class="resource" :ref="resource.id">
         <div class="info">
             <div class="header">
                 <h3 class="title"><a>{{resource.title}}</a></h3>
