@@ -17,5 +17,10 @@ export default new Router({
       name: 'login',
       component: () => import('./views/Login.vue')
     },
+    {
+      path: '/new',
+      name: 'new',
+      component: () => import('./views/NewEntity.vue')
+    },
   ]
 })
