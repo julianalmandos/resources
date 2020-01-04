@@ -8,10 +8,11 @@
                 <router-link
                     v-for="(option,index) in leftMenu"
                     :key="index"
-                    :class="['nav__anchor',{'nav__anchor--active':menu[index].active}]"
+                    :class="['nav__anchor',{'nav__anchor--active':active==index}]"
                     :to="option.path"
+                    :exact="option.path=='/'"
                 >
-                    <font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}
+                    <span @click="selectMenuOption(index)"><font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}</span>
                 </router-link>
             </div>
             <h1 class="nav__title">Resourcerify</h1>
@@ -19,10 +20,11 @@
                 <router-link
                     v-for="(option,index) in rightMenu"
                     :key="index"
-                    :class="['nav__anchor',{'nav__anchor--active':menu[index].active}]"
+                    :class="['nav__anchor',{'nav__anchor--active':active==index}]"
                     :to="option.path"
+                    @click="selectMenuOption(index)"
                 >
-                    <font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}
+                    <span @click="selectMenuOption(index)"><font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}</span>
                 </router-link>
             </div>
         </div>
@@ -38,117 +40,112 @@ export default {
                 'home': {
                     title: 'Home',
                     path: '/',
-                    icon: 'home',
-                    active: false,
+                    icon: 'home'
                 },
                 'new': {
                     title: 'New',
                     path: '/new',
-                    icon: 'plus',
-                    active: false,
+                    icon: 'plus'
                 }
             },
             rightMenu: {
                 'profile': {
                     title: 'Profile',
                     path: '/profile',
-                    icon: 'user',
-                    active: false,
+                    icon: 'user'
                 },
                 'help': {
                     title: 'Help',
                     path: '/help',
-                    icon: 'question',
-                    active: false,
+                    icon: 'question'
                 },
                 'logout': {
                     title: 'Logout',
                     path: '/logout',
-                    icon: 'sign-out-alt',
-                    active: false,
+                    icon: 'sign-out-alt'
                 }
-            }
-        }
-    },
-    computed: {
-        menu() {
-            return {...this.leftMenu,...this.rightMenu};
+            },
+            active: {}
         }
     },
 };
 </script>
 
 <style scoped>
-.logo {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background-color: #eeeeee;
-    border: 1px solid #2c3e50;
-    z-index: 1;
-    padding: 5px 20px 5px 20px;
+    .logo {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background-color: #eeeeee;
+        border: 1px solid #2c3e50;
+        z-index: 1;
+        padding: 5px 20px 5px 20px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.logo__text {
-    color: #2c3e50;
-    font-size: 3em;
-    margin: 0;
-}
+    .logo__text {
+        color: #2c3e50;
+        font-size: 3em;
+        margin: 0;
+    }
 
-.nav {
-    background-color: #2c3e50;
-    color: white;
-    width: 80%;
-    height: 45px;
+    .nav {
+        background-color: #2c3e50;
+        color: white;
+        width: 80%;
+        height: 45px;
 
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
 
-    position: fixed;
-    top: 0;
-}
+        position: fixed;
+        top: 0;
+    }
 
-.nav__title {
-    margin: 0;
-    font-size: 2em;
-}
+    .nav__title {
+        margin: 0;
+        font-size: 2em;
+    }
 
-.nav__leftmenu {
-    width: 25%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-}
+    .nav__leftmenu {
+        width: 25%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+    }
 
-.nav__rightmenu {
-    width: 25%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    padding-right: 15px;
-}
+    .nav__rightmenu {
+        width: 25%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 15px;
+    }
 
-.nav__anchor {
-    margin-left: 15px;
-    text-decoration: none;
-    color: white;
-    border-bottom: 2px solid transparent;
-}
+    .nav__anchor {
+        margin-left: 15px;
+        text-decoration: none;
+        color: white;
+        border-bottom: 2px solid transparent;
+    }
 
-.nav__anchor:hover {
-    border-bottom: 2px solid white;
-}
+    .nav__anchor.router-link-active {
+        border-bottom: 2px solid white;
+    }
 
-.icon {
-    padding-right: 5px;
-}
+    .nav__anchor:hover {
+        border-bottom: 2px solid white;
+    }
+
+    .icon {
+        padding-right: 5px;
+    }
 </style>
