@@ -2,32 +2,42 @@
     <div class="newentity">
         <h1>What do you want to create?</h1>
         <div class="menu">
-            <button
-                :class="
-                    [
-                        {'menu__button--selected': resourceOptionSelected},
-                        'menu__button'
-                    ]
-                "
-                @mouseover="toggleOnResourceDescription"
-                @mouseout="toggleOffResourceDescription"
-                @click="selectResourceOption"
+            <router-link 
+                to="/new/resource"
+                exact
             >
-                <h1>Resource</h1>
-            </button>
-            <button
-                :class="
-                    [
-                        {'menu__button--selected': categoryOptionSelected},
-                        'menu__button'
-                    ]
-                "
-                @mouseover="toggleOnCategoryDescription"
-                @mouseout="toggleOffCategoryDescription"
-                @click="selectCategoryOption"
-            >
-                <h1>Category</h1>
+                <button
+                    :class="
+                        [
+                            {'menu__button--selected': resourceOptionSelected},
+                            'menu__button'
+                        ]
+                    "
+                    @mouseover="toggleOnResourceDescription"
+                    @mouseout="toggleOffResourceDescription"
+                    @click="selectResourceOption"
+                >
+                    <h1>Resource</h1>
                 </button>
+            </router-link>
+            <router-link
+                to="/new/category"
+                exact
+            >
+                <button
+                    :class="
+                        [
+                            {'menu__button--selected': categoryOptionSelected},
+                            'menu__button'
+                        ]
+                    "
+                    @mouseover="toggleOnCategoryDescription"
+                    @mouseout="toggleOffCategoryDescription"
+                    @click="selectCategoryOption"
+                >
+                    <h1>Category</h1>
+                </button>
+            </router-link>
         </div>
         <div class="info" v-if="showCategoryDescription || showResourceDescription">
             <font-awesome-icon class="info__icon" icon="info-circle" size="2x"/>
@@ -42,6 +52,7 @@
                 keep your resources organized 😉.
             </p>
         </div>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -55,6 +66,8 @@ export default {
             categoryOptionSelected: false,
             resourceOptionSelected: false,
         }
+    },
+    beforeMount() {
     },
     methods: {
         toggleOnResourceDescription() {

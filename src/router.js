@@ -20,7 +20,19 @@ export default new Router({
     {
       path: '/new',
       name: 'new',
-      component: () => import('./views/NewEntity.vue')
+      component: () => import('./views/NewEntity.vue'),
+      children: [
+        {
+          path: 'resource',
+          name: 'new-resource',
+          component: () => import('./views/NewResource.vue')
+        },
+        {
+          path: 'category',
+          name: 'new-category',
+          component: () => import('./views/NewCategory.vue')
+        }
+      ]
     },
   ]
 })
