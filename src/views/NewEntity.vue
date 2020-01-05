@@ -2,9 +2,18 @@
     <div class="newentity">
         <h1>What do you want to create?</h1>
         <div class="menu">
+            <div class="info">
+                <div class="info__container" v-if="showResourceDescription">
+                    <font-awesome-icon class="info__icon" icon="info-circle" size="2x"/>
+                    <p class="info__paragraph">
+                        <strong>Resources</strong> 🔖 are the main application's entity. They represent useful things
+                        like tutorials, guides, documentations, libraries, etc. (anything you want 😀!). If you have any webpage you want to save,
+                        just create a new resource!
+                    </p>
+                </div>
+            </div>
             <router-link 
                 to="/new/resource"
-                exact
             >
                 <button
                     :class="
@@ -22,7 +31,6 @@
             </router-link>
             <router-link
                 to="/new/category"
-                exact
             >
                 <button
                     :class="
@@ -38,21 +46,18 @@
                     <h1>Category</h1>
                 </button>
             </router-link>
+            <div class="info">
+                <div class="info__container" v-if="showCategoryDescription">
+                    <font-awesome-icon class="info__icon" icon="info-circle" size="2x"/>
+                    <p class="info__paragraph">
+                        <strong>Categories</strong> 📦 are used to classify resources by their purpose. For example, you can create
+                        a category to group all your frameworks' pages. Create as many as you want, as they'll help you to
+                        keep your resources organized 😉.
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="info" v-if="showCategoryDescription || showResourceDescription">
-            <font-awesome-icon class="info__icon" icon="info-circle" size="2x"/>
-            <p class="info__paragraph" v-if="showResourceDescription">
-                <strong>Resources</strong> 🔖 are the main application's entity. They represent useful things
-                like tutorials, guides, documentations, libraries, etc. (anything you want 😀!). If you have any webpage you want to save,
-                just create a new resource!
-            </p>
-            <p class="info__paragraph" v-if="showCategoryDescription">
-                <strong>Categories</strong> 📦 are used to classify resources by their purpose. For example, you can create
-                a category to group all your frameworks' pages. Create as many as you want, as they'll help you to
-                keep your resources organized 😉.
-            </p>
-        </div>
-        <router-view></router-view>
+        <router-view class="form"></router-view>
     </div>
 </template>
 
@@ -74,20 +79,22 @@ export default {
             this.showResourceDescription = true;
         },
         toggleOffResourceDescription() {
-            this.showResourceDescription = false;
+            !this.resourceOptionSelected ? this.showResourceDescription = false : null;
         },
         toggleOnCategoryDescription() {
             this.showCategoryDescription = true;
         },
         toggleOffCategoryDescription() {
-            this.showCategoryDescription = false;
+            !this.categoryOptionSelected ? this.showCategoryDescription = false : null;
         },
         selectResourceOption() {
             this.categoryOptionSelected = false;
+            this.showCategoryDescription = false
             this.resourceOptionSelected = true;
         },
         selectCategoryOption() {
             this.resourceOptionSelected = false;
+            this.showResourceDescription = false
             this.categoryOptionSelected = true;
         }
     }
@@ -104,7 +111,7 @@ export default {
     .menu {
         display: flex;
         flex-direction: row;
-        width: 600px;
+        width: 100%;
         align-items: center;
         justify-content: space-around;
     }
@@ -131,8 +138,13 @@ export default {
     }
 
     .info {
+        flex-basis: 2;
+        width: 400px;
+        height: 200px;
+    }
+
+    .info__container {
         margin-top: 20px;
-        width: 800px;
         text-align: center;
     }
     
