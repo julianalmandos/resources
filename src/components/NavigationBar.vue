@@ -12,7 +12,7 @@
                     :to="option.path"
                     :exact="option.path=='/'"
                 >
-                    <span @click="selectMenuOption(index)"><font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}</span>
+                    <font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}
                 </router-link>
             </div>
             <h1 class="nav__title">Resourcerify</h1>
@@ -24,7 +24,7 @@
                     :to="option.path"
                     @click="selectMenuOption(index)"
                 >
-                    <span @click="selectMenuOption(index)"><font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}</span>
+                    <font-awesome-icon class="icon" :icon="option.icon" />{{option.title}}
                 </router-link>
             </div>
         </div>
