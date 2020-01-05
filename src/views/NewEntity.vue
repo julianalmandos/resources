@@ -57,7 +57,9 @@
                 </div>
             </div>
         </div>
-        <router-view class="form"></router-view>
+        <transition name="slide-fade">
+            <router-view class="form"></router-view>
+        </transition>
     </div>
 </template>
 
@@ -112,6 +114,7 @@ export default {
         display: flex;
         flex-direction: row;
         width: 100%;
+        height: 200px;
         align-items: center;
         justify-content: space-around;
     }
@@ -138,13 +141,12 @@ export default {
     }
 
     .info {
-        flex-basis: 2;
+        display: flex;
+        align-items: center;
         width: 400px;
-        height: 200px;
     }
 
     .info__container {
-        margin-top: 20px;
         text-align: center;
     }
     
