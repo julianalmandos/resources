@@ -76,9 +76,11 @@ export default {
     }
 
     .box__additional {
+        width: 200px;
         padding: 12px;
         display: flex;
         align-items: center;
+        justify-content: center;
         height: 2.5em;
         box-sizing: border-box;
         background-color: #2c3e50;
