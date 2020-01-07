@@ -93,6 +93,17 @@ export default new Vuex.Store({
         .then(response => {
           dispatch('getResources');
         })
+    },
+    createCategory({ dispatch }, category) {
+      alert('llega');
+      Axios.post('//localhost:3000/api/categories', {
+        data: {
+          category: category
+        }
+      })
+        .then(response => {
+          dispatch('getCategories');
+        })
     }
   }
 })

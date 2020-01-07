@@ -31,6 +31,11 @@ export default {
                 color: '',
             }
         }
+    },
+    methods: {
+        createCategory() {
+            this.$store.dispatch('createCategory', this.category);
+        }
     }
 }
 </script>
