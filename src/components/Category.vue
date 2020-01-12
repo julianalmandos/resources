@@ -1,12 +1,23 @@
 <template>
-    <span :class="['category',{'selected' : category.selected}]" @click="selectCategory"><span class="dot" :style="[{'background-color':category.color}]"></span>{{category.name}}</span>
+    <span
+        :class="['category',{'selected' : !preview && category.selected}]"
+        @click="!preview ? selectCategory() : null"
+    >
+        <span
+            class="dot"
+            :style="[{'background-color':category.color}]"
+        >
+        </span>
+        {{category.name}}
+    </span>
 </template>
 
 <script>
 export default {
     name: 'Category',
     props: {
-        category:{},
+        category: {},
+        preview: false,
     },
     data() {
         return {
