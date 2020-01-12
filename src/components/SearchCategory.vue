@@ -2,10 +2,11 @@
     <div class="searchcategory">
         <div class="categories">
             <Category
-            v-for="(category,index) of categories"
-            :key="index"
-            :category="category"
-            @select="selectCategory(category.id)"
+                v-for="(category,index) of categories"
+                :key="index"
+                :category="category"
+                :preview="false"
+                @select="selectCategory(category.id)"
             />
         </div>
         <h3 class="search-category-info" v-if="searchCategories.length!=0">

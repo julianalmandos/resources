@@ -4,10 +4,10 @@ import router from './router'
 import store from './store'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPencilAlt, faTrashAlt, faLink, faUser, faSignOutAlt, faQuestion, faHome, faPlus, faSearch, faTimes, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPencilAlt, faTrashAlt, faLink, faUser, faSignOutAlt, faQuestion, faHome, faPlus, faSearch, faTimes, faInfoCircle, faCheck, faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faPencilAlt,faTrashAlt,faLink,faUser,faSignOutAlt,faQuestion,faHome,faPlus,faSearch,faTimes,faInfoCircle)
+library.add(faPencilAlt,faTrashAlt,faLink,faUser,faSignOutAlt,faQuestion,faHome,faPlus,faSearch,faTimes,faInfoCircle,faCheck,faChevronDown,faChevronUp)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

@@ -7,34 +7,109 @@
                     <div class="box__additional">
                         Name
                     </div>
-                    <input class="box__input" type="text" placeholder="" v-model="category.name" />
+                    <input class="box__input" type="text" placeholder="" v-model="category.name.value" />
                 </div>
                 <div class="box">
                     <div class="box__additional">
-                        Color
+                        Color #
                     </div>
-                    <input class="box__input" type="text" placeholder="" v-model="category.color" />
+                    <input class="box__input" type="text" placeholder="" v-model="category.color.value" />
+                    <span class="box__color-preview" :style="[{'background-color':category.color.value}]"></span>
                 </div>
             </div>
-            <button class="form__button" type="submit"><font-awesome-icon icon="plus"/> Create!</button>
+            <div class="form__buttons">
+                <button class="form__button" type="submit"><font-awesome-icon icon="plus"/> Create!</button>
+                <button
+                    :disabled="incompleteForm"
+                    :class="!incompleteForm ? 'form__button' : 'form__button-disabled'"
+                    type="button"
+                    @click="togglePreview"
+                >
+                    <font-awesome-icon :icon="preview.icon"/> Preview
+                </button>
+            </div>
         </form>
+        <Category
+            class="category-preview"
+            v-if="preview.value"
+            :category="{
+                name: category.name.value,
+                color: category.color.value
+            }"
+            :preview="true"
+        />
     </div>
 </template>
 
 <script>
+import EmptyFieldValidator from '@/utils/validators/EmptyFieldValidator.js';
+import Category from '@/components/Category.vue';
+
 export default {
     name: 'NewCategory',
+    components: {
+        Category
+    },
     data() {
         return {
             category: {
-                name: '',
-                color: '',
-            }
+                name: {
+                    value: '',
+                    validators: [
+                        new EmptyFieldValidator(),
+                    ],
+                },
+                color: {
+                    value: '',
+                    validators: [
+                        new EmptyFieldValidator(),
+                    ]
+                },
+            },
+            preview: {
+                value: false,
+                icon: 'chevron-down'
+            },
+        }
+    },
+    computed: {
+        incompleteForm() {
+            return this.category.name.value == '' || this.category.color.value == '';
+        },
+    },
+    watch: {
+        'category.name.value': function(newVal) {
+            this.preview.value && newVal == '' ? this.togglePreview() : null;
+        },
+        'category.color.value': function(newVal) {
+            this.preview.value && newVal == '' ? this.togglePreview() : null;
         }
     },
     methods: {
         createCategory() {
-            this.$store.dispatch('createCategory', this.category);
+            if (this.validateForm()) {
+                this.$store.dispatch('createCategory', {
+                    name: this.category.name.value,
+                    color: this.category.color.value
+                });
+                this.$store.commit('setAlert',{
+                    alert: {
+                        message: 'You\'ve created the ' + this.category.name.value + ' category!',
+                        icon: 'check'
+                    },
+                    duration: 4000
+                });
+                this.$router.push('/');
+            } else {
+                alert('no paso');
+            }
+        },
+        validateForm() {
+            return true;
+        },
+        togglePreview() {
+            this.preview.value = !this.preview.value ? true : false;
+            this.preview.icon = !this.preview.value ? 'chevron-down' : 'chevron-up';
         }
     }
 }
@@ -67,6 +142,17 @@ export default {
         border: 1px solid #2c3e50;
     }
 
+    .form__button-disabled {
+        padding: 12px 18px 12px 18px;
+        background-color: #eeeeee;
+        color: #999999;
+        border: 1px solid #cccccc;
+    }
+
+    .form__button:first-child {
+        margin-right: 15px;
+    }
+
     .form__button:hover {
         background-color: #2c3e50;
         color: #eeeeee;
@@ -82,6 +168,7 @@ export default {
         align-items: center;
         justify-content: center;
         width: 300px;
+        position: relative;
     }
 
     .box:first-child {
@@ -116,5 +203,21 @@ export default {
         box-sizing: border-box;
         background-color: #2c3e50;
         color: white;
+    }
+
+    .box__color-preview {
+        position: absolute;
+        height: 15px;
+        width: 15px;
+        right: 10px;
+        border: 1px solid #2c3e50;
+    }
+
+    .form_buttons {
+        display: flex;
+    }
+
+    .category-preview {
+        margin-top: 20px;
     }
 </style>
