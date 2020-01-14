@@ -56,6 +56,7 @@ export default {
     background-color: #bbb;
     display: inline-block;
     margin-right: 6px;
+    border: 1px solid #2c3e50;
   }
 
   html, body{

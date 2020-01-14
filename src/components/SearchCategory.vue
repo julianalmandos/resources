@@ -67,8 +67,8 @@ export default {
 
     .categories {
         display: flex;
+        flex-flow: row wrap;
         width: 100%;
-        flex-direction: row;
         justify-content: space-evenly;
     }
 
