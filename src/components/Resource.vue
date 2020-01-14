@@ -94,7 +94,7 @@ export default {
 
     .resource {
         padding: 10px 15px;
-        border: 1px dashed #2c3e50;
+        border: 2px solid #dfdfdf;
 
         text-decoration: none;
         color: #2c3e50;
@@ -182,6 +182,9 @@ export default {
     }
 
     .working-on__icon {
+        color: #efc050;
+        stroke: #2c3e50;
+        stroke-width: 30px;
         position: absolute;
         left: -17px;
         top: -17px;
