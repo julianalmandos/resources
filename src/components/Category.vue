@@ -8,7 +8,7 @@
             :style="[{'background-color':category.color}]"
         >
         </span>
-        {{category.name}}
+        {{category.name}} ({{$store.getters.getResourceCountForCategory(category.id)}})
     </span>
 </template>
 
@@ -39,8 +39,11 @@ export default {
     .category {
         border: 1px solid #2c3e50;;
         padding: 2px 20px 2px 20px;
+        margin-top: 10px;
         border-radius: 5px;
         cursor: pointer;
+        display: flex;
+        align-items: center;
     }
 
     .selected {

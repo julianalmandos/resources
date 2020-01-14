@@ -28,6 +28,11 @@ export default new Vuex.Store({
         return currentCategory.id == categoryId;
       })
       return category.name;
+    },
+    getResourceCountForCategory: state => categoryId => {
+      return state.resources.filter(resource => {
+        return resource.category.id == categoryId;
+      }).length;
     }
   },
   mutations: {
@@ -95,7 +100,6 @@ export default new Vuex.Store({
         })
     },
     createCategory({ dispatch }, category) {
-      alert('llega');
       Axios.post('//localhost:3000/api/categories', {
         data: {
           category: category
