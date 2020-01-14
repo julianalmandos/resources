@@ -108,6 +108,26 @@ export default new Vuex.Store({
         .then(response => {
           dispatch('getCategories');
         })
+    },
+    addResourceToFavourites({ dispatch }, resourceId) {
+      Axios.put('//localhost:3000/api/resources/addToFavourites', {
+        data: {
+          resourceId: resourceId
+        }
+      })
+        .then(response => {
+          dispatch('getResources');
+        })
+    },
+    removeResourceFromFavourites({ dispatch }, resourceId) {
+      Axios.put('//localhost:3000/api/resources/removeFromFavourites', {
+        data: {
+          resourceId: resourceId
+        }
+      })
+        .then(response => {
+          dispatch('getResources');
+        })
     }
   }
 })
