@@ -74,8 +74,6 @@ export default {
             resourceOptionSelected: false,
         }
     },
-    beforeMount() {
-    },
     methods: {
         toggleOnResourceDescription() {
             this.showResourceDescription = true;
