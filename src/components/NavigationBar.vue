@@ -79,7 +79,7 @@ export default {
         transform: translate(-50%, 0);
         background-color: #eeeeee;
         border: 1px solid #2c3e50;
-        z-index: 1;
+        z-index: 3;
         padding: 5px 20px 5px 20px;
 
         display: flex;
@@ -106,6 +106,7 @@ export default {
 
         position: fixed;
         top: 0;
+        z-index: 2;
     }
 
     .nav__title {
