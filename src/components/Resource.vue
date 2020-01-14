@@ -12,7 +12,15 @@
             <div><span class="dot" :style="{'background-color':resource.category.color}"></span>{{resource.category.name}}</div>
             <span class="description">{{resource.description}}</span>
         </div>
-        <div class="creation-date"><em>Added on: {{resource.createdAt}}</em></div>
+        <div class="footer">
+            <div class="footer__creation-date"><em>Added on: {{resource.createdAt}}</em></div>
+            <a class="footer__button" :href="resource.url" target="_blank">
+                <span class="footer__button__text">
+                    Go
+                </span>
+                <font-awesome-icon icon="chevron-right"/>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -63,19 +71,12 @@ export default {
         padding: 10px 15px;
         border: 1px dashed #2c3e50;
 
-        border-bottom-right-radius: 30px;
-
         text-decoration: none;
         color: #2c3e50;
 
-        cursor: pointer;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-    }
-
-    .resource:hover {
-        background-color: white;
     }
 
     .header {
@@ -109,9 +110,40 @@ export default {
         width:100%;
     }
 
-    .creation-date {
+    .footer__creation-date {
         color: #aaaaaa;
         text-decoration: underline;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .footer__button {
+        display: flex;
+        align-items: center;
+
+        background-color: #2c3e50;
+        color: #eeeeee;
+        border: 1px solid #2c3e50;
+        padding: 4px 10px;
+    }
+
+    .footer__button:hover {
+        background-color: #eeeeee;
+        cursor: pointer;
+        color :#2c3e50;
+    }
+
+    .footer__button:focus {
+        outline: none;
+    }
+
+    .footer__button__text {
+        margin-right: 5px;
     }
 
 </style>
