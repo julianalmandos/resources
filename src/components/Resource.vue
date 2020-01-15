@@ -1,12 +1,16 @@
 <template>
     <div class="resource" :ref="resource.id">
         <transition appear name="rotate">
-            <font-awesome-icon @click="removeResourceFromFavourites" v-if="resource.favourite" class="working-on__icon" icon="star" size="2x"/>
+            <font-awesome-icon @click="removeResourceFromFavourites" v-if="resource.favourite" class="icon favourite__icon" icon="star" size="2x"/>
+        </transition>
+        <transition appear name="rotate">
+            <font-awesome-icon @click="removeResourceFromWorkingOn" v-if="workingOn" class="icon working-on__icon" icon="hammer" size="2x"/>
         </transition>
         <div class="info">
             <div class="header">
                 <h3 class="title"><a>{{resource.title}}</a></h3>
                 <div class="actions">
+                    <a @click="addResourceToWorkingOn" v-if="!workingOn" class="body__action"><font-awesome-icon class="action" icon="hammer" alt="Add to Working On"/></a>
                     <a @click="addResourceToFavourites" v-if="!resource.favourite" class="body__action"><font-awesome-icon class="action" icon="star" alt="Add to favourites"/></a>
                     <a @click="copyUrl" class="body__action"><font-awesome-icon class="action" icon="link" alt="Copy link to clipboard"/></a>
                     <a @click="editResource" class="body__action"><font-awesome-icon class="action" icon="pencil-alt" alt="Edit"/></a>
@@ -38,6 +42,11 @@ export default {
     },
     props: {
         resource:{},
+    },
+    data() {
+        return {
+            workingOn: false
+        }
     },
     methods: {
         deleteResource() {
@@ -84,6 +93,26 @@ export default {
                 },
                 duration: 4000
             });
+        },
+        addResourceToWorkingOn() {
+            this.workingOn = true;
+            this.$store.commit('setAlert',{
+                alert: {
+                    message: 'Added "' + this.resource.title + '" to Working On!',
+                    icon: 'hammer'
+                },
+                duration: 4000
+            });
+        },
+        removeResourceFromWorkingOn() {
+            this.workingOn = false;
+            this.$store.commit('setAlert',{
+                alert: {
+                    message: 'Removed "' + this.resource.title + '" from Working On!',
+                    icon: 'hammer'
+                },
+                duration: 4000
+            });
         }
     }
 }
@@ -92,7 +121,7 @@ export default {
 <style scoped>
 
     .resource {
-        padding: 10px 15px;
+        padding: 10px 25px;
         border: 2px solid #dfdfdf;
 
         text-decoration: none;
@@ -179,19 +208,28 @@ export default {
         cursor: pointer;
     }
 
-    .working-on__icon {
-        color: #efc050;
+    .icon {
         stroke: #2c3e50;
         stroke-width: 30px;
         position: absolute;
-        left: -17px;
-        top: -17px;
         cursor: pointer;
     }
 
-    .working-on__icon:hover {
+    .icon:hover {
         transform: scale(1.2);
         color: #9b2335;
+    }
+
+    .favourite__icon {
+        color: #efc050;
+        left: -17px;
+        top: -17px;
+    }
+
+    .working-on__icon {
+        color: #3ef17a;
+        left: -17px;
+        top: 18px;
     }
 
     .rotate-enter-active {
