@@ -6,7 +6,7 @@
       class="grid"
       :class="currentResources.length < 3 ? (currentResources.length < 2 ? 'one-col-grid' : 'two-col-grid') : 'big-grid'"
     >
-      <Resource v-for="(resource,index) of currentResources" :key="index" :resource="resource" />
+      <Resource v-for="resource of currentResources" :key="resource.id" :resource="resource" />
     </div>
     <div v-else class="error">
       <h3>No matching resources.</h3>
