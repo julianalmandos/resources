@@ -1,14 +1,13 @@
 <template>
     <div class="resource" :ref="resource.id">
         <transition appear name="rotate">
-            <font-awesome-icon v-if="resource.favourite" class="working-on__icon" icon="star" size="2x"/>
+            <font-awesome-icon @click="removeResourceFromFavourites" v-if="resource.favourite" class="working-on__icon" icon="star" size="2x"/>
         </transition>
         <div class="info">
             <div class="header">
                 <h3 class="title"><a>{{resource.title}}</a></h3>
                 <div class="actions">
                     <a @click="addResourceToFavourites" v-if="!resource.favourite" class="body__action"><font-awesome-icon class="action" icon="star" alt="Add to favourites"/></a>
-                    <a @click="removeResourceFromFavourites" v-else class="body__action"><font-awesome-icon class="action" icon="star" alt="Remove from favourites"/></a>
                     <a @click="copyUrl" class="body__action"><font-awesome-icon class="action" icon="link" alt="Copy link to clipboard"/></a>
                     <a @click="editResource" class="body__action"><font-awesome-icon class="action" icon="pencil-alt" alt="Edit"/></a>
                     <a @click="deleteResource" class="body__action"><font-awesome-icon class="action" icon="trash-alt" alt="Delete"/></a>
@@ -18,7 +17,7 @@
             <span class="description">{{resource.description}}</span>
         </div>
         <div class="footer">
-            <div class="footer__creation-date"><em>Added on: {{resource.createdAt}}</em></div>
+            <div class="footer__creation-date">Added on: {{resource.createdAt}}</div>
             <a class="footer__button" :href="resource.url" target="_blank">
                 <span class="footer__button__text">
                     <strong>Go</strong>
@@ -138,7 +137,6 @@ export default {
 
     .footer__creation-date {
         color: #aaaaaa;
-        text-decoration: underline;
     }
 
     .footer {
@@ -188,6 +186,12 @@ export default {
         position: absolute;
         left: -17px;
         top: -17px;
+        cursor: pointer;
+    }
+
+    .working-on__icon:hover {
+        transform: scale(1.2);
+        color: #9b2335;
     }
 
     .rotate-enter-active {
