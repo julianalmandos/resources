@@ -9,13 +9,19 @@
                     </div>
                     <input class="box__input" type="text" placeholder="" v-model="category.name.value" />
                 </div>
-                <div class="box">
+                <ul v-if="true || category.name.errors.length != 0" class="form__error-list">
+                    <li v-for="(error,index) in category.name.errors" :key="index">{{error.msg}}</li>
+                </ul>
+                <div class="box box--margin">
                     <div class="box__additional">
                         Color #
                     </div>
                     <input class="box__input" type="text" placeholder="" v-model="category.color.value" />
                     <span class="box__color-preview" :style="[{'background-color':category.color.value}]"></span>
                 </div>
+                <ul v-if="true || category.color.errors.length != 0" class="form__error-list">
+                    <li v-for="(error,index) in category.color.errors" :key="index">{{error.msg}}</li>
+                </ul>
             </div>
             <div class="form__buttons">
                 <button class="form__button" type="submit"><font-awesome-icon icon="plus"/> Create!</button>
@@ -55,15 +61,19 @@ export default {
             category: {
                 name: {
                     value: '',
+                    // Not implemented
                     validators: [
                         new EmptyFieldValidator(),
                     ],
+                    errors: []
                 },
                 color: {
                     value: '',
+                    // Not implemented
                     validators: [
                         new EmptyFieldValidator(),
-                    ]
+                    ],
+                    errors: []
                 },
             },
             preview: {
@@ -79,9 +89,11 @@ export default {
     },
     watch: {
         'category.name.value': function(newVal) {
+            newVal != '' ? this.category.name.errors = [] : null;
             this.preview.value && newVal == '' ? this.togglePreview() : null;
         },
         'category.color.value': function(newVal) {
+            newVal != '' ? this.category.color.errors = [] : null;
             this.preview.value && newVal == '' ? this.togglePreview() : null;
         }
     },
@@ -100,16 +112,27 @@ export default {
                     duration: 4000
                 });
                 this.$router.push('/');
-            } else {
-                alert('no paso');
             }
         },
         validateForm() {
-            return this.category.name.value != '' && this.category.color.value != '' && this.category.color.value.charAt(0) == '#';
+            this.emptyErrors();
+            if (this.category.name.value == '') {
+                this.category.name.errors.push({msg:'Please, enter a valid name.'});
+                return false;
+            }
+            if (this.category.color.value.length<2 || this.category.color.value.charAt(0) != '#') {
+                this.category.color.errors.push({msg:'Please, enter a valid hexadecimal color.'});
+                return false;
+            }
+            return true;
         },
         togglePreview() {
             this.preview.value = !this.preview.value ? true : false;
             this.preview.icon = !this.preview.value ? 'chevron-down' : 'chevron-up';
+        },
+        emptyErrors() {
+            this.category.color.errors = [];
+            this.category.name.errors = [];
         }
     }
 }
@@ -163,6 +186,13 @@ export default {
         outline: none;
     }
 
+    .form__error-list {
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        color: red;
+    }
+
     .box {
         display: flex;
         align-items: center;
@@ -171,8 +201,8 @@ export default {
         position: relative;
     }
 
-    .box:first-child {
-        margin-bottom: 30px;
+    .box--margin {
+        margin-top: 30px;
     }
 
     .box__input {
