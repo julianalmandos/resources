@@ -105,10 +105,7 @@ export default {
             }
         },
         validateForm() {
-            return
-                this.category.name.value != '' &&
-                this.category.color.value != '' &&
-                this.category.color.value[0] == '#';
+            return this.category.name.value != '' && this.category.color.value != '' && this.category.color.value.charAt(0) == '#';
         },
         togglePreview() {
             this.preview.value = !this.preview.value ? true : false;
