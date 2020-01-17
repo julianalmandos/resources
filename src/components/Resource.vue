@@ -4,7 +4,7 @@
             <font-awesome-icon @click="removeResourceFromFavourites" v-if="resource.favourite" class="icon favourite__icon" icon="star" size="2x"/>
         </transition>
         <transition appear name="rotate">
-            <font-awesome-icon @click="removeResourceFromWorkingOn" v-if="workingOn" class="icon working-on__icon" icon="hammer" size="2x"/>
+            <font-awesome-icon @click="removeResourceFromWorkingOn" v-if="resource.workingOn" class="icon working-on__icon" icon="hammer" size="2x"/>
         </transition>
         <div class="info">
             <div class="header">
@@ -42,11 +42,6 @@ export default {
     },
     props: {
         resource:{},
-    },
-    data() {
-        return {
-            workingOn: false
-        }
     },
     methods: {
         deleteResource() {
@@ -95,7 +90,7 @@ export default {
             });
         },
         addResourceToWorkingOn() {
-            this.workingOn = true;
+            this.$store.dispatch('addResourceToWorkingOn', this.resource.id);
             this.$store.commit('setAlert',{
                 alert: {
                     message: 'Added "' + this.resource.title + '" to Working On!',
@@ -105,7 +100,7 @@ export default {
             });
         },
         removeResourceFromWorkingOn() {
-            this.workingOn = false;
+            this.$store.dispatch('removeResourceFromWorkingOn', this.resource.id);
             this.$store.commit('setAlert',{
                 alert: {
                     message: 'Removed "' + this.resource.title + '" from Working On!',

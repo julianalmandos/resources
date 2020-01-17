@@ -128,6 +128,26 @@ export default new Vuex.Store({
         .then(response => {
           dispatch('getResources');
         })
+    },
+    addResourceToWorkingOn({ dispatch }, resourceId) {
+      Axios.put('//localhost:3000/api/resources/addToWorkingOn', {
+        data: {
+          resourceId: resourceId
+        }
+      })
+        .then(response => {
+          dispatch('getResources');
+        })
+    },
+    removeResourceFromWorkingOn({ dispatch }, resourceId) {
+      Axios.put('//localhost:3000/api/resources/removeFromWorkingOn', {
+        data: {
+          resourceId: resourceId
+        }
+      })
+        .then(response => {
+          dispatch('getResources');
+        })
     }
   }
 })
