@@ -10,7 +10,7 @@
             <div class="header">
                 <h3 class="title"><a>{{resource.title}}</a></h3>
                 <div class="actions">
-                    <a @click="addResourceToWorkingOn" v-if="!workingOn" class="body__action"><font-awesome-icon class="action" icon="hammer" alt="Add to Working On"/></a>
+                    <a @click="addResourceToWorkingOn" v-if="!resource.workingOn" class="body__action"><font-awesome-icon class="action" icon="hammer" alt="Add to Working On"/></a>
                     <a @click="addResourceToFavourites" v-if="!resource.favourite" class="body__action"><font-awesome-icon class="action" icon="star" alt="Add to favourites"/></a>
                     <a @click="copyUrl" class="body__action"><font-awesome-icon class="action" icon="link" alt="Copy link to clipboard"/></a>
                     <a @click="editResource" class="body__action"><font-awesome-icon class="action" icon="pencil-alt" alt="Edit"/></a>

@@ -9,7 +9,7 @@
                     </div>
                     <input class="box__input" type="text" placeholder="" v-model="category.name.value" />
                 </div>
-                <ul v-if="true || category.name.errors.length != 0" class="form__error-list">
+                <ul v-if="category.name.errors.length != 0" class="form__error-list">
                     <li v-for="(error,index) in category.name.errors" :key="index">{{error.msg}}</li>
                 </ul>
                 <div class="box box--margin">
@@ -19,12 +19,18 @@
                     <input class="box__input" type="text" placeholder="" v-model="category.color.value" />
                     <span class="box__color-preview" :style="[{'background-color':category.color.value}]"></span>
                 </div>
-                <ul v-if="true || category.color.errors.length != 0" class="form__error-list">
+                <ul v-if="category.color.errors.length != 0" class="form__error-list">
                     <li v-for="(error,index) in category.color.errors" :key="index">{{error.msg}}</li>
                 </ul>
             </div>
             <div class="form__buttons">
-                <button class="form__button" type="submit"><font-awesome-icon icon="plus"/> Create!</button>
+                <button
+                    :disabled="incompleteForm"
+                    :class="['form__button-margin', !incompleteForm ? 'form__button' : 'form__button-disabled']"
+                    type="submit"
+                >
+                    <font-awesome-icon icon="plus"/> Create!
+                </button>
                 <button
                     :disabled="incompleteForm"
                     :class="!incompleteForm ? 'form__button' : 'form__button-disabled'"
@@ -153,8 +159,6 @@ export default {
 
     .form__inputs {
         padding: 50px;
-        border-left: 1px dashed #2c3e50;
-        border-right: 1px dashed #2c3e50;
         border-radius: 15px;
     }
 
@@ -172,7 +176,7 @@ export default {
         border: 1px solid #cccccc;
     }
 
-    .form__button:first-child {
+    .form__button-margin {
         margin-right: 15px;
     }
 
@@ -189,7 +193,10 @@ export default {
     .form__error-list {
         display: flex;
         justify-content: center;
-        margin: 0;
+        margin: 10px 0 0 0;
+        padding: 0;
+        list-style-type: none;
+        list-style-position: outside;
         color: red;
     }
 
