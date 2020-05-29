@@ -8,7 +8,7 @@
         </transition>
         <div class="info">
             <div class="header">
-                <h3 class="title"><a>{{resource.title}}</a></h3>
+                <h3 class="title"><a :href="resource.url" target="_blank">{{resource.title}}</a></h3>
                 <div class="actions">
                     <a @click="addResourceToWorkingOn" v-if="!resource.workingOn" class="body__action"><font-awesome-icon class="action" icon="hammer" alt="Add to Working On"/></a>
                     <a @click="addResourceToFavourites" v-if="!resource.favourite" class="body__action"><font-awesome-icon class="action" icon="star" alt="Add to favourites"/></a>
@@ -22,12 +22,6 @@
         </div>
         <div class="footer">
             <div class="footer__creation-date">Added on: {{resource.createdAt}}</div>
-            <a class="footer__button" :href="resource.url" target="_blank">
-                <span class="footer__button__text">
-                    <strong>Go</strong>
-                </span>
-                <font-awesome-icon icon="chevron-right"/>
-            </a>
         </div>
     </div>
 </template>
@@ -55,7 +49,7 @@ export default {
             });
         },
         copyUrl() {
-            navigator.clipboard.writeText(this.$refs[this.resource.id].getAttribute('href'))
+            navigator.clipboard.writeText(this.resource.url)
                 .then(() => {
                     this.$store.commit('setAlert',{
                         alert: {
@@ -151,7 +145,12 @@ export default {
     }
 
     a {
+        color: #2c3e50;
         text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
     }
 
     .description {
@@ -168,30 +167,6 @@ export default {
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-end;
-    }
-
-    .footer__button {
-        display: flex;
-        align-items: center;
-
-        background-color: #2c3e50;
-        color: #eeeeee;
-        border: 1px solid #2c3e50;
-        padding: 4px 10px;
-    }
-
-    .footer__button:hover {
-        background-color: #eeeeee;
-        cursor: pointer;
-        color :#2c3e50;
-    }
-
-    .footer__button:focus {
-        outline: none;
-    }
-
-    .footer__button__text {
-        margin-right: 5px;
     }
 
     .body__category {

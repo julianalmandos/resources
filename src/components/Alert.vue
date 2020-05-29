@@ -38,6 +38,7 @@ export default {
 
     .alert__close {
         margin: 10px 20px 10px 0;
+        cursor: pointer;
     }
 
     .alert__close:hover {
